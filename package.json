@@ -1,9 +1,14 @@
 {
   "name": "vue-sandbox",
   "version": "0.0.0",
-  "main": "index.js",
   "author": "Maxime Rossier",
   "license": "MIT",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
   "dependencies": {
     "nuxt": "^1.0.0-alpha.5"
   }
