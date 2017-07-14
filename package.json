@@ -10,6 +10,8 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^1.0.0-alpha.5"
+    "nuxt": "^1.0.0-alpha.5",
+    "vue": "2.3.4",
+    "vuetify": "^0.13.1"
   }
 }
