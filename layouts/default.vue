@@ -8,7 +8,7 @@
     >
       <v-list>
         <v-list-tile
-          router
+          to
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
