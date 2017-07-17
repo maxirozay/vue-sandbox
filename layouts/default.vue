@@ -2,10 +2,22 @@
   <v-app dark toolbar footer>
     <v-navigation-drawer
       persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
       v-model="drawer"
+      overflow
+      enable-resize-watcher
     >
+      <v-toolbar flat>
+        <v-list>
+          <v-list-tile avatar tag="div">
+            <v-list-tile-avatar>
+              <img src="https://vuejs.org/images/logo.png" />
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>Menu</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
       <v-list>
         <v-list-tile
           to
@@ -24,32 +36,14 @@
     </v-navigation-drawer>
     <v-toolbar fixed>
       <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn
-        icon
-        @click.native.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.native.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.native.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
     <main>
-      <v-container fluid>
-        <nuxt />
+      <v-container>
+        <nuxt/>
       </v-container>
     </main>
-    <v-footer :fixed="fixed">
+    <v-footer>
       <span>footer</span>
     </v-footer>
   </v-app>
@@ -59,15 +53,12 @@
   export default {
     data () {
       return {
-        clipped: false,
         drawer: true,
-        fixed: false,
+        title: 'Vue Sandbox',
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
           { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-        ],
-        miniVariant: false,
-        title: 'Vuetify.js'
+        ]
       }
     }
   }
