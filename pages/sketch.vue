@@ -85,6 +85,11 @@
           { hid: 'description', name: 'description', content: 'Sketch' }
         ]
       }
+    },
+    transition: {
+      name: 'fade-transition',
+      mode: 'out-in',
+      duration: 100
     }
   }
 </script>
