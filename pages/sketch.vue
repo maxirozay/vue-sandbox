@@ -1,10 +1,6 @@
 <template>
   <section class="text-xs-center">
-    <div>
-      <h1>
-        Sketch
-      </h1>
-    </div>
+    <h1>Sketch</h1>
     <div ref="canvas">
       <canvas id="canvas"
         class="grey lighten-4"
