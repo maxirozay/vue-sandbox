@@ -24,25 +24,32 @@
     data: function () {
       return {
         isDrawing: false,
-        lastPosition: { x: 0, y: 0 }
+        lastPosition: { x: 0, y: 0 },
+        canvas: null,
+        contex: null
       }
     },
     mounted: function () {
+      this.canvas = document.getElementById('canvas')
+      this.contex = this.canvas.getContext('2d')
       window.addEventListener('resize', this.handleResize)
       this.handleResize()
+      if (this.$store.state.sketch.image) {
+        this.contex.putImageData(this.$store.state.sketch.image, 0, 0)
+      }
     },
     beforeDestroy: function () {
+      this.$store.commit('sketch/copyImage',
+        this.contex.getImageData(0, 0, this.canvas.width, this.canvas.height))
       window.removeEventListener('resize', this.handleResize)
     },
     methods: {
       handleResize: function (event) {
-        const c = document.getElementById('canvas')
-        c.width = this.$refs.canvas.offsetWidth
-        c.height = 600
+        this.canvas.width = this.$refs.canvas.offsetWidth
+        this.canvas.height = 600
       },
       startDrawing: function (event) {
-        const c = document.getElementById('canvas')
-        this.lastPosition = this.getCursorPosition(c, event)
+        this.lastPosition = this.getCursorPosition(event)
         this.isDrawing = true
       },
       stopDrawing: function (event) {
@@ -50,20 +57,18 @@
       },
       draw: function (event) {
         if (!this.isDrawing) return
-        const c = document.getElementById('canvas')
-        const ctx = c.getContext('2d')
-        const position = this.getCursorPosition(c, event)
-        ctx.beginPath()
-        ctx.lineJoin = 'round'
-        ctx.lineCap = 'round'
-        ctx.lineWidth = 10
-        ctx.moveTo(this.lastPosition.x, this.lastPosition.y)
-        ctx.lineTo(position.x, position.y)
-        ctx.stroke()
+        const position = this.getCursorPosition(event)
+        this.contex.beginPath()
+        this.contex.lineJoin = 'round'
+        this.contex.lineCap = 'round'
+        this.contex.lineWidth = 10
+        this.contex.moveTo(this.lastPosition.x, this.lastPosition.y)
+        this.contex.lineTo(position.x, position.y)
+        this.contex.stroke()
         this.lastPosition = position
       },
-      getCursorPosition: function (canvas, event) {
-        const rect = canvas.getBoundingClientRect()
+      getCursorPosition: function (event) {
+        const rect = this.canvas.getBoundingClientRect()
         if (event.touches) {
           return {
             x: event.touches[0].clientX - rect.left,
