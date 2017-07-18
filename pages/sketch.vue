@@ -76,6 +76,14 @@
         }
         return { x: event.clientX - rect.left, y: event.clientY - rect.top }
       }
+    },
+    head () {
+      return {
+        title: 'Sketch',
+        meta: [
+          { hid: 'description', name: 'description', content: 'Sketch' }
+        ]
+      }
     }
   }
 </script>
